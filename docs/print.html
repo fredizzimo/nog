@@ -305,7 +305,7 @@ You can always leave/enter the work mode by calling the <a href="getting-started
 <p>When a workspace is in fullscreen mode it only displays the window that has focus, everything else stays the same.
 If you want to disable focus changing while being in fullscreen mode you can set the <code>ignore_fullscreen_actions</code> to <code>true</code> (defaults to <code>false</code>).</p>
 <h1 id="pinning-mode"><a class="header" href="#pinning-mode">Pinning Mode</a></h1>
-<p>Pinned windows float above all other windows in an &quot;always-on-top&quot; fashion. A program can be pinned or unpinned using <a href="getting-started//api/Window.html#win_toggle_pinwin_id">win_toggle_pin</a> or <a href="getting-started//api/Window.html#win_toggle_ws_pinwin_id">win_toggle_ws_pin</a> to pin a window above all workspaces or just to a specific workspace respectively. Pinned programs' visibility can be toggled with <a href="getting-started//api/General.html#toggle_view_pinned">toggle_view_pinned</a> or <a href="getting-started//api/Workspace.html#ws_toggle_view_pinned">ws_toggle_view_pinned</a> to toggle either the non-workspace pinned programs or workspace pinned programs respectively.</p>
+<p>Pinned windows float above all other windows in an &quot;always-on-top&quot; fashion. A program can be pinned or unpinned using <a href="getting-started//api/Window.html#win_toggle_pinwin_id">win_toggle_pin</a> or <a href="getting-started//api/Window.html#win_toggle_ws_pinwin_id">win_toggle_ws_pin</a> to pin a window above all workspaces (globally) or just to a specific workspace respectively. Pinned programs' visibility can be toggled with <a href="getting-started//api/General.html#toggle_view_pinned">toggle_view_pinned</a> or <a href="getting-started//api/Workspace.html#ws_toggle_view_pinned">ws_toggle_view_pinned</a> to toggle either the globally pinned programs or workspace pinned programs respectively.</p>
 <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p>The configuration lives in <code>%APPDATA%/nog/config</code>.
 At startup the program looks for a <code>init.lua</code> file in the root of this folder and executes it.</p>
@@ -464,7 +464,7 @@ Leaving a mode will cause nog to unbind all normal keybindings again and afterwa
 <p>A rule can contain the following settings</p>
 <table><thead><tr><th>Key</th><th>Value</th><th>Description</th></tr></thead><tbody>
 <tr><td>has_custom_titlebar</td><td>Boolean</td><td>Changes how we align the window (applications like <a href="https://code.visualstudio.com/">vscode</a> should have this enabled)</td></tr>
-<tr><td>ignore</td><td>Boolean</td><td>Tells nog to not manage this window</td></tr>
+<tr><td>action</td><td>String</td><td>Tells nog how to behave when a new window is created. The value is expected to be one of the following: <ul> <li><strong>Ignore</strong> - nog will ignore the window</li> <li><strong>Manage</strong> - nog will manage the window and add it to the currently active workspace</li> <li><strong>Pin</strong> - nog will globally pin the window (see <a href="configuration//getting-started/pinning_mode.html">pinning mode</a>)</li> <li><strong>Validate</strong> - nog will check other config values to determine whether to manage or not </li> </ul></td></tr>
 <tr><td>chromium</td><td>Boolean</td><td>Adds chromium specific handling (anything based on chromium like the new microsoft edge should have this enabled)</td></tr>
 <tr><td>firefox</td><td>Boolean</td><td>Adds firefx specific handling</td></tr>
 <tr><td>workspace_id</td><td>Number</td><td>Which workspace this window gets moved to</td></tr>
@@ -871,8 +871,12 @@ The behavior of this movement is essentially moving the current window so that i
 </ul>
 </li>
 </ul>
-<h2 id="ws_toggle_view_pinned"><a class="header" href="#ws_toggle_view_pinned">ws_toggle_view_pinned()</a></h2>
+<h2 id="ws_toggle_view_pinnedws_id"><a class="header" href="#ws_toggle_view_pinnedws_id">ws_toggle_view_pinned(ws_id)</a></h2>
 <p>Toggles the visibility of all programs pinned to the current workspace.</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>ws_id</code> [number] id of workspace</li>
+</ul>
 <h1 id="plugin"><a class="header" href="#plugin">Plugin</a></h1>
 <h2 id="plug_installid"><a class="header" href="#plug_installid">plug_install(id)</a></h2>
 <p>Clones the github repository with the given <code>id</code> into the plugins folder. If a folder with the same name already exists, this function is noop.</p>

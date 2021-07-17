@@ -179,7 +179,7 @@
 <p>A rule can contain the following settings</p>
 <table><thead><tr><th>Key</th><th>Value</th><th>Description</th></tr></thead><tbody>
 <tr><td>has_custom_titlebar</td><td>Boolean</td><td>Changes how we align the window (applications like <a href="https://code.visualstudio.com/">vscode</a> should have this enabled)</td></tr>
-<tr><td>ignore</td><td>Boolean</td><td>Tells nog to not manage this window</td></tr>
+<tr><td>action</td><td>String</td><td>Tells nog how to behave when a new window is created. The value is expected to be one of the following: <ul> <li><strong>Ignore</strong> - nog will ignore the window</li> <li><strong>Manage</strong> - nog will manage the window and add it to the currently active workspace</li> <li><strong>Pin</strong> - nog will globally pin the window (see <a href="/getting-started/pinning_mode.html">pinning mode</a>)</li> <li><strong>Validate</strong> - nog will check other config values to determine whether to manage or not </li> </ul></td></tr>
 <tr><td>chromium</td><td>Boolean</td><td>Adds chromium specific handling (anything based on chromium like the new microsoft edge should have this enabled)</td></tr>
 <tr><td>firefox</td><td>Boolean</td><td>Adds firefx specific handling</td></tr>
 <tr><td>workspace_id</td><td>Number</td><td>Which workspace this window gets moved to</td></tr>
