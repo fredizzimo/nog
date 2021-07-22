@@ -354,12 +354,12 @@ impl Window {
     }
     pub fn show(&self) {
         unsafe {
-            ShowWindow(self.id.into(), SW_SHOW);
+            ShowWindow(self.id.into(), SW_SHOWNORMAL);
         }
     }
     pub fn hide(&self) {
         unsafe {
-            ShowWindow(self.id.into(), SW_HIDE);
+            ShowWindow(self.id.into(), SW_SHOWMINIMIZED);
         }
     }
     pub fn close(&self) -> SystemResult {
