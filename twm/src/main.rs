@@ -1279,6 +1279,8 @@ fn main() {
     std::env::set_var("RUST_BACKTRACE", "1");
     logging::setup().expect("Failed to setup logging");
 
+    crate::system::api::enable_high_dpi().expect("Failed to enable high dpi mode");
+
     info!("Config: {:?}", get_config_path());
     info!("Runtime: {:?}", get_runtime_path());
 
