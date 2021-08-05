@@ -21,14 +21,16 @@ pub mod key;
 pub mod keybinding;
 pub mod modifier;
 
-#[derive(Copy, Clone, Debug, PartialEq)]
+#[derive(Clone, Debug, PartialEq)]
 pub enum KeybindingsMessage {
-    UpdateKeybindings,
+    UpdateKeybindings {
+        keybindings: Vec<Keybinding>,
+    }
 }
 
-fn get_keybindings(state: &AppState) -> HashMap<i32, Keybinding> {
+fn get_keybindings(keybindings: &Vec<Keybinding>) -> HashMap<i32, Keybinding> {
     let mut kbs = HashMap::new();
-    for kb in &state.config.keybindings {
+    for kb in keybindings {
         kbs.insert(kb.get_id(), kb.clone());
     }
     kbs
@@ -39,13 +41,13 @@ pub fn listen(state_arc: Arc<Mutex<AppState>>) -> Sender<KeybindingsMessage> {
     let event_tx = state_arc.lock().event_channel.sender.clone();
 
     std::thread::spawn(move || {
-        let mut kbs = get_keybindings(&state_arc.lock());
+        let mut kbs = get_keybindings(&state_arc.lock().config.keybindings);
         let hook = keyboardhook::start();
         while let Ok(ev) = hook.recv() {
-            if let Ok(msg) = rx.try_recv() {
+            while let Ok(msg) = rx.try_recv() {
                 match msg {
-                    KeybindingsMessage::UpdateKeybindings => {
-                        kbs = get_keybindings(&state_arc.lock());
+                    KeybindingsMessage::UpdateKeybindings { keybindings } => {
+                        kbs = get_keybindings(&keybindings);
                     }
                 }
             }

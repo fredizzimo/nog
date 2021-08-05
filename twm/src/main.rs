@@ -1170,7 +1170,7 @@ fn run(state_arc: Arc<Mutex<AppState>>) -> Result<(), Box<dyn std::error::Error>
                         Ok(())
                     },
                     Event::UpdateKeybindings => {
-                        kb_tx.send(KeybindingsMessage::UpdateKeybindings);
+                        kb_tx.send(KeybindingsMessage::UpdateKeybindings {keybindings: state_arc.lock().config.keybindings.clone()});
                         Ok(())
                     }
                     Event::Keybinding(kb) => {
